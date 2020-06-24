@@ -19,7 +19,7 @@ export const LangProvider: FC = (props): JSX.Element => {
   };
 
   return (
-    <LangContext.Provider value={{ lang, currentLang: langData[lang] , switchLang: () => switchLang }}>
+    <LangContext.Provider value={{ lang, currentLang: langData[lang] , switchLang }}>
       {props.children}
     </LangContext.Provider>
   )

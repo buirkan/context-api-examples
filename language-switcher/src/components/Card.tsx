@@ -14,27 +14,48 @@ type CardProps = {
   data: Data
 };
 
-export const Card: FC<CardProps> = ({ data }): JSX.Element => {
-  const card = useContext(LangContext).currentLang;
+type ContextData = {
+  date: string,
+  description: string,
+  genre: string,
+  link: string,
+  title: string
+};
 
-  console.log(card);
-  
+type Title = {
+  h1: string
+};
+
+type ContextProps = {
+  app: Title,
+  card: ContextData
+};
+
+export const Card: FC<CardProps> = (props: CardProps): JSX.Element => {
+  const context: ContextProps = useContext(LangContext).currentLang;
+
   return (
-    <div className="Card">
-      <div className="img-container">
-        <img src={data.img} alt={data.title} />
+    <div className="img-thumbnail mt-3 mb-3 p-5">
+      <div style={{ textAlign: "center" }}>
+        <img 
+          className="img-fluid img-thumbnail rounded" 
+          style={{ width: '60%' }} 
+          src={props.data.img} 
+          alt={props.data.title} />
       </div>
-      <h3>data.title</h3>
-      {/* <div>
+      <div>
+        <h3>{props.data.title}</h3>
         <p>
-          <strong>{card}</strong>: {data.genre}
+          <strong>{context.card.genre}</strong>: {props.data.genre}
         </p>
         <p>
-          <strong>{card}</strong>: {data.date}
+          <strong>{context.card.date}</strong>: {props.data.date}
         </p>
-      </div> */}
-      <p className="description">{data.description}</p>
-      <a href={data.link}>Read More</a>
+        <p>
+          <strong>{context.card.description}</strong>: {props.data.description}
+        </p>
+        <a href={props.data.link}>{context.card.link}</a>
+      </div>
     </div>
   )
 }
